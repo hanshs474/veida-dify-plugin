@@ -1,0 +1,63 @@
+identity:
+  name: generate_image
+  author: hanshs474
+  label:
+    en_US: Generate image
+    zh_Hans: 生成图片
+description:
+  human:
+    en_US: >-
+      Turn a prompt into an image. No API key, no account — each call spends the
+      4-credit anonymous grant, and the plugin mints a fresh caller per image so
+      a workflow is not limited to one run. A per-IP ceiling of 30 credits a day
+      (about 7 images) still applies. Output is 1K with a watermark. Full model
+      line-up at https://veida.ai/image?utm_source=dify&utm_medium=plugin
+    zh_Hans: >-
+      把提示词变成图片。不需要 API key 和账号 —— 每次调用花掉 4 分匿名额度,
+      插件每张图都新建一个调用方,所以工作流不会只跑一次就卡住。
+      每个 IP 每天仍有 30 分(约 7 张)上限。输出为 1K 带水印。
+      完整模型见 https://veida.ai/image?utm_source=dify&utm_medium=plugin
+  llm: >-
+    Generate one image from a text prompt and return its URL. Name the subject,
+    the lighting, the medium and the framing; vague prompts come back generic.
+    This tool cannot edit an existing image — the editing model costs more than
+    an anonymous caller can pay, so there is no edit tool in this plugin.
+parameters:
+  - name: prompt
+    type: string
+    required: true
+    form: llm
+    label:
+      en_US: Prompt
+      zh_Hans: 提示词
+    human_description:
+      en_US: What the picture should show.
+      zh_Hans: 图片要画什么。
+    llm_description: >-
+      The picture to make. Name subject, lighting, medium and framing.
+  - name: aspect_ratio
+    type: select
+    required: false
+    default: "1:1"
+    form: llm
+    label:
+      en_US: Aspect ratio
+      zh_Hans: 画面比例
+    human_description:
+      en_US: Shape of the output. 16:9 and 9:16 take longer than 1:1.
+      zh_Hans: 输出比例。16:9 与 9:16 比 1:1 慢。
+    llm_description: One of 1:1, 16:9, 9:16, 4:3, 3:4.
+    options:
+      - value: "1:1"
+        label: { en_US: "1:1", zh_Hans: "1:1" }
+      - value: "16:9"
+        label: { en_US: "16:9", zh_Hans: "16:9" }
+      - value: "9:16"
+        label: { en_US: "9:16", zh_Hans: "9:16" }
+      - value: "4:3"
+        label: { en_US: "4:3", zh_Hans: "4:3" }
+      - value: "3:4"
+        label: { en_US: "3:4", zh_Hans: "3:4" }
+extra:
+  python:
+    source: tools/generate_image.py

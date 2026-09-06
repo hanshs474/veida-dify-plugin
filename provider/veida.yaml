@@ -1,0 +1,26 @@
+identity:
+  author: hanshs474
+  name: veida
+  label:
+    en_US: Veida
+    zh_Hans: Veida
+  description:
+    en_US: >-
+      Image generation with no credentials to configure. Veida (https://veida.ai)
+      exposes an anonymous tier, so this provider needs no API key — install it
+      and the tool runs. A fresh caller is granted 4 credits and one
+      text-to-image run costs 4, so the plugin mints a new caller per image;
+      a per-IP ceiling of 30 credits a day sits on top. Output is 1K with a
+      watermark until you sign in.
+    zh_Hans: >-
+      无需配置任何凭据的图像生成。Veida(https://veida.ai)提供匿名额度,
+      因此本 provider 不需要 API key,装上即可调用。新调用方有 4 积分,
+      一次文生图正好 4 分,所以插件每张图都新建一个调用方;每个 IP 每天上限 30 分。
+      未登录时输出为 1K 带水印。
+  icon: icon.svg
+credentials_for_provider: {}
+tools:
+  - tools/generate_image.yaml
+extra:
+  python:
+    source: provider/veida.py
