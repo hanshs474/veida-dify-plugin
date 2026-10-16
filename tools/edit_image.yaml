@@ -1,0 +1,48 @@
+identity:
+  name: edit_image
+  author: hanshs474
+  label:
+    en_US: Edit photo
+    zh_Hans: 编辑照片
+description:
+  human:
+    en_US: >-
+      Change one thing in a photo (colour, outfit, background, expression) and
+      keep the rest. Each call is one anonymous run on Veida AI Image v1, the
+      same price as a new picture.
+    zh_Hans: >-
+      只改照片里的一件事（颜色、服装、背景、表情），其余保持不变。每次调用是
+      Veida AI Image v1 上的一次匿名运行，和生成一张新图同价。
+  llm: >-
+    Edit an existing photo and return the URL of the result. The prompt must
+    name what STAYS, not only what changes: "turn the jacket red, keep the same
+    face, pose and lighting" holds the picture together; "make it red" leaves
+    everything else open to the model.
+parameters:
+  - name: image_url
+    type: string
+    required: true
+    form: llm
+    label:
+      en_US: Image URL
+      zh_Hans: 图片地址
+    human_description:
+      en_US: Publicly reachable URL of the photo to edit.
+      zh_Hans: 要编辑的照片的公开地址。
+    llm_description: A public https URL pointing at the source photo.
+  - name: prompt
+    type: string
+    required: true
+    form: llm
+    label:
+      en_US: Edit instruction
+      zh_Hans: 编辑指令
+    human_description:
+      en_US: What to change, and what must stay the same.
+      zh_Hans: 改什么，以及什么必须保持不变。
+    llm_description: >-
+      Describe the change and explicitly name what must not change (face, skin,
+      pose, lighting, background).
+extra:
+  python:
+    source: tools/edit_image.py

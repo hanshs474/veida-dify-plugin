@@ -3,19 +3,17 @@ type: plugin
 author: hanshs474
 name: veida
 label:
-  en_US: Veida
-  zh_Hans: Veida
+  en_US: Veida AI
+  zh_Hans: Veida AI
 description:
   en_US: >-
-    Generate an image from a prompt with no API key and no account. Runs on
-    Veida's anonymous endpoint (https://veida.ai), so the plugin works the moment
-    it is installed — nothing to configure, nothing to buy first. Anonymous
-    output is 1K and watermarked, and the tool says so rather than letting a
-    workflow discover it.
+    Unlimited free AI image generator. Generate an image from a prompt, or edit
+    a photo, with no API key and no account: the tools run on Veida AI's
+    anonymous endpoint (https://veida.ai), so the plugin works the moment it is
+    installed.
   zh_Hans: >-
-    不需要 API key、也不需要账号,直接从提示词生成图片。走 Veida(https://veida.ai)
-    的匿名端点,装上即可用 —— 没有任何要配置的凭据,也不用先买额度。
-    匿名输出为 1K 且带水印,工具会直接说明,而不是让工作流自己撞上。
+    无限次免费 AI 生图。从提示词生成图片，或编辑一张照片 —— 不需要 API key，
+    也不需要账号。工具走 Veida AI（https://veida.ai）的匿名端点，装上即可用。
 icon: icon.svg
 resource:
   memory: 33554432
@@ -36,4 +34,10 @@ meta:
     entrypoint: main
   minimum_dify_version: null
 privacy: PRIVACY.md
-created_at: 2026-09-06T17:00:00.000000+08:00
+repo: https://github.com/hanshs474/veida-dify-plugin
+contact: support@veida.ai
+network:
+  domains:
+    - veida.ai
+    - cdn.veida.ai
+created_at: 2026-10-16T17:00:00.000000+08:00

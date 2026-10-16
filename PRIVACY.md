@@ -2,26 +2,30 @@
 
 ## What this plugin sends
 
-When the tool is invoked, the plugin sends to `https://veida.ai`:
+When a tool is invoked, the plugin sends to `https://veida.ai`:
 
 - the prompt text you or your workflow supplied
+- for `edit_image`, the image URL you supplied
 - a randomly generated anonymous identifier, created fresh for **each call**
 
-Nothing else leaves the plugin. There is no account, no API key and no login, so no
-credential of yours is transmitted or stored.
+Nothing else leaves the plugin. There is no account, no API key and no login, so
+no credential of yours is transmitted or stored.
 
 ## What this plugin stores
 
-Nothing. The anonymous identifier exists for the duration of one call and is discarded.
-The plugin writes no files and keeps no state between invocations.
+Nothing. The plugin holds no state between calls. The anonymous identifier is
+generated per invocation and discarded when the call ends, so it cannot be used
+to link two of your calls together.
 
-## What the service stores
+## What the service does with it
 
-Veida stores the generated image on its CDN so the returned URL keeps working, and counts
-the call against the anonymous allowance described in the README. The identifier it counts
-against is the throwaway one above, which is not linked to you.
+Prompts and generated images are processed by Veida AI to produce the result, and
+generated images are served from Veida AI's CDN at a public URL. Treat that URL as
+public: anyone holding it can view the image. Do not send prompts or source
+photos that must remain confidential.
 
-Full policy: <https://veida.ai/privacy-policy?utm_source=dify&utm_medium=plugin>
+Veida AI's own terms and privacy policy apply to that processing:
+<https://veida.ai/privacy-policy>
 
 ## Contact
 

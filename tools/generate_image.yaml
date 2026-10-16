@@ -7,21 +7,16 @@ identity:
 description:
   human:
     en_US: >-
-      Turn a prompt into an image. No API key, no account — each call spends the
-      4-credit anonymous grant, and the plugin mints a fresh caller per image so
-      a workflow is not limited to one run. A per-IP ceiling of 30 credits a day
-      (about 7 images) still applies. Output is 1K with a watermark. Full model
-      line-up at https://veida.ai/image?utm_source=dify&utm_medium=plugin
+      Turn a prompt into an image. No API key, no account: each call is one
+      anonymous run on Veida AI Image v1. More models at
+      https://veida.ai/image?utm_source=dify&utm_medium=plugin
     zh_Hans: >-
-      把提示词变成图片。不需要 API key 和账号 —— 每次调用花掉 4 分匿名额度,
-      插件每张图都新建一个调用方,所以工作流不会只跑一次就卡住。
-      每个 IP 每天仍有 30 分(约 7 张)上限。输出为 1K 带水印。
-      完整模型见 https://veida.ai/image?utm_source=dify&utm_medium=plugin
+      把提示词变成图片。不需要 API key 和账号：每次调用是 Veida AI Image v1 上的一次
+      匿名运行。更多模型见 https://veida.ai/image?utm_source=dify&utm_medium=plugin
   llm: >-
-    Generate one image from a text prompt and return its URL. Name the subject,
-    the lighting, the medium and the framing; vague prompts come back generic.
-    This tool cannot edit an existing image — the editing model costs more than
-    an anonymous caller can pay, so there is no edit tool in this plugin.
+    Generate one image from a text prompt and return its URL. Describe subject,
+    lighting, medium and framing. Use this when there is no source photo. To
+    change an existing photo, use edit_image.
 parameters:
   - name: prompt
     type: string
@@ -44,8 +39,8 @@ parameters:
       en_US: Aspect ratio
       zh_Hans: 画面比例
     human_description:
-      en_US: Shape of the output. 16:9 and 9:16 take longer than 1:1.
-      zh_Hans: 输出比例。16:9 与 9:16 比 1:1 慢。
+      en_US: Shape of the output.
+      zh_Hans: 输出比例。
     llm_description: One of 1:1, 16:9, 9:16, 4:3, 3:4.
     options:
       - value: "1:1"

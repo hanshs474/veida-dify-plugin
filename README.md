@@ -1,72 +1,63 @@
-# Veida — image generation with no API key
+# Veida AI for Dify: image generation and photo editing, no API key
 
-A Dify tool provider that generates images from a prompt with **nothing to configure**.
-No API key, no account, no card. It calls the anonymous tier of
-[Veida](https://veida.ai/?utm_source=dify&utm_medium=plugin), which meters the free allowance against an identifier the
-plugin invents rather than an account you register.
+Unlimited free AI image generator. Most image plugins ask for a provider key
+before they do anything; this one does not.
+[Veida AI](https://veida.ai/?utm_source=dify&utm_medium=plugin) exposes an
+anonymous tier, so both tools run the moment the plugin is installed.
 
 ## Tools
 
 | Tool | What it does |
 |---|---|
-| `generate_image` | Prompt → image URL. Returns both an image message and the URL as text. |
+| `generate_image` | Prompt in, image URL out, with an aspect-ratio select |
+| `edit_image` | Photo URL + instruction in, edited image URL out |
 
-That is the whole surface, on purpose. See below for what is deliberately missing.
+## The rule that makes edits work
 
-## What the free tier actually covers
+Name what must **stay**, not only what changes.
 
-Every number here was read out of the running service, not estimated:
+> turn the jacket red, keep the same face, pose and lighting
 
-- A signed-out caller is granted **4 credits**, and one text-to-image run costs **4**.
-  That is one image per caller, so the plugin mints a **fresh caller per call** — a
-  workflow is not limited to a single run.
-- A ceiling of **30 credits per IP per day** sits on top: roughly **7 images a day** from
-  one machine, however many callers it invents. When it is spent, the tool returns a
-  readable message instead of failing silently.
-- Free output is **1K and watermarked**. Signing in removes the mark and opens the rest of
-  the shelf — [GPT Image 2](https://veida.ai/image/gpt-image-2?utm_source=dify&utm_medium=plugin),
-  [Nano Banana 2](https://veida.ai/image/nano-banana-2?utm_source=dify&utm_medium=plugin),
-  [Seedream 5.0 Lite](https://veida.ai/image/seedream-5-lite?utm_source=dify&utm_medium=plugin). What each tier costs is on
-  the [pricing page](https://veida.ai/pricing?utm_source=dify&utm_medium=plugin).
+holds the picture together. "Make it red" leaves everything else open to the
+model.
 
-## What this plugin deliberately does not do
+## What the free tier covers
 
-- 🔴 **No edit tool.** Editing an existing image runs on a model that costs **30 credits**
-  against a 4-credit anonymous grant, so an anonymous edit can never be paid for. A tool
-  that always fails is worse than a tool that is not there. For edits, sign in and use the
-  [image editor](https://veida.ai/image/nano-banana-2-lite?utm_source=dify&utm_medium=plugin) or the
-  [ChatGPT image editor](https://veida.ai/image/chatgpt-image-editor?utm_source=dify&utm_medium=plugin).
-- **No video tool.** This site does not serve video at all.
+| | |
+|---|---|
+| Anonymous grant per call | 4 credits |
+| `generate_image` | 4 credits, one run |
+| `edit_image` | 4 credits, one run |
+| Per-IP ceiling | 30 credits a day (about 7 runs) |
 
-## Errors the tool returns as text
+Every call mints a fresh anonymous id, so a workflow loop is not stopped after
+its first image. Signed-out output is 1K with a small veida.ai mark.
 
-Rather than raising, the tool answers with a sentence a workflow can branch on:
+Signing in on [veida.ai](https://veida.ai/pricing?utm_source=dify&utm_medium=plugin)
+makes Veida AI Image v1 unlimited and opens the rest of the shelf:
+[GPT Image 2](https://veida.ai/image/gpt-image-2?utm_source=dify&utm_medium=plugin)
+when the picture has to carry readable text,
+[GPT Image 2.5](https://veida.ai/image/gpt-image-2-5?utm_source=dify&utm_medium=plugin),
+[Nano Banana 2](https://veida.ai/image/nano-banana-2?utm_source=dify&utm_medium=plugin),
+and the [ChatGPT image editor](https://veida.ai/image/chatgpt-image-editor?utm_source=dify&utm_medium=plugin).
+Prompts that already work are in the
+[prompt library](https://veida.ai/image/prompts?utm_source=dify&utm_medium=plugin).
 
-- the anonymous allowance for this caller is spent
-- the per-IP daily ceiling is spent — try tomorrow, or sign in
-- the prompt was refused by the content filter — rewrite it rather than retrying the same text
-- still queued after the timeout
+## Errors the tools return as text
 
-## Writing prompts that work
+- the content filter refused the prompt (rewrite it rather than retrying the
+  same text)
+- the job was still queued when the timeout ran out
+- the per-IP daily ceiling is spent
 
-Name the light, the material and the composition. "A product photo of a mug" gives the
-model nothing; "matte black ceramic mug on pale oak, soft window light from the left,
-shallow depth of field" gives it a picture. Worked examples are in the
-[prompt library](https://veida.ai/image/prompts?utm_source=dify&utm_medium=plugin), and finished output is in the
-[showcase](https://veida.ai/showcases?utm_source=dify&utm_medium=plugin).
+## Setup and connection requirements
 
-The same engine backs the
-[ChatGPT image generator](https://veida.ai/image/chatgpt-image-generator?utm_source=dify&utm_medium=plugin) and the
-[free AI image generator](https://veida.ai/image?utm_source=dify&utm_medium=plugin) pages in a browser.
-
-## Setup
-
-Install and use it. `credentials_for_provider` is empty and `_validate_credentials` is a
-no-op, because there is no credential — asking for one would block a setup that is already
-correct.
+There is no setup: no API key, no account, no connection settings. The tools
+call `https://veida.ai` over HTTPS and results are served from
+`https://cdn.veida.ai`, so the only requirement is outbound network access from
+your Dify instance to those two hosts.
 
 ## Source
 
-<https://github.com/hanshs474/veida-dify-plugin>
-
-MIT.
+<https://github.com/hanshs474/veida-dify-plugin> — issues and pull requests
+welcome there.
